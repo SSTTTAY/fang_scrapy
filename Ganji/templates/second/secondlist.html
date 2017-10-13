@@ -1,0 +1,80 @@
+{% extends 'second/second.html' %}
+{% block secondlist %}
+      <div class="ui equal width grid" id="ss" style="margin:5px 0 5px 0;width:70%">
+        <div class="row">
+           <div class="column">
+             <div class="ui red segment">
+               <div class="ui statistic">
+                   <!--统计量-->
+                 <div class="value">
+                   {{ count }}
+                 </div>
+                 <div class="label">
+                   房源数
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="column">
+             <div class="ui blue segment">
+               <div class="ui statistic">
+                   <!--阅读量-->
+                 <div class="value">
+                   5000
+                 </div>
+                 <div class="label">
+                   counts
+                 </div>
+               </div>
+             </div>
+           </div>
+        </div>
+
+    <div class="ui divider"></div>
+<div class="row">
+<div class="column">
+<div class="ui container segment">
+    <div class="ui divided items">
+        {% for item in ask_rent %}
+        <div class="item">
+            <div class="content">
+                <a class="header" href="{{ item.href }}">
+                    {{ item.title }}
+                </a>
+                <div class="meta">
+        <span class="cinema">{{ item.price }}</span>
+      </div>
+                <div class="extra">
+                {% for tag in item.address  %}
+                <div class="ui label">
+                    {{tag}}
+                </div>
+                {% endfor %}
+      </div>
+
+
+      </div>
+            </div>
+        {% endfor %}
+    <div class="ui small pagination menu">
+    <a class="icon item" href="?page={{fangs.previous_page_number}}">
+        <i class="icon left arrow">1</i>
+    </a>
+
+    <div class="disable item" >...
+
+    </div>
+
+    <a class="icon item" href="?page={{fangs.next_page_number}}">
+        <i class="icon right arrow">10</i>
+    </a>
+
+      </div>
+
+        </div>
+
+</div>
+</div>
+</div>
+    </div>
+{% endblock %}

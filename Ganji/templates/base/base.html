@@ -1,0 +1,35 @@
+{% load static %}
+
+
+{% extends 'index.html' %}
+{% block headscript %}
+ <meta charset="utf-8">
+    <title>'Guangzhou'</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+    <script src="{% static 'js/data.js' %}"></script>
+{% endblock %}
+
+
+{% block side_menu %}
+<div class="ui inverted left vertical sidebar menu" id="sider">
+    <a class="item"><i class="home icon"></i> 出租房 </a>
+    <a class="item" href="/second.html"><i class="block layout icon"></i> 二手房 </a>
+    <a class="item"><i class="smile icon"></i> 商业楼 </a>
+    <a class="item"><i class="calendar icon"></i> 仓库土地 </a>
+  </div>
+{% endblock %}
+
+{% block click_menu %}
+    <script >
+    $('#menu').click(function(){
+        $('#sider').sidebar('toggle');
+        });
+    </script>
+{% endblock %}
+
+{% block main_menu %}

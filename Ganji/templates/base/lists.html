@@ -1,0 +1,88 @@
+{% extends 'base/index.html' %}
+{% block lists %}
+
+      <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%">
+        <div class="row">
+           <div class="column">
+             <div class="ui red segment">
+               <div class="ui statistic">
+                   <!--统计量-->
+                 <div class="value">
+                   {{ count }}
+                 </div>
+                 <div class="label">
+                   房源数
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="column">
+             <div class="ui blue segment">
+               <div class="ui statistic">
+                   <!--阅读量-->
+                 <div class="value">
+                   5000
+                 </div>
+                 <div class="label">
+                   平均价
+                 </div>
+               </div>
+             </div>
+           </div>
+        </div>
+
+    <div class="ui divider"></div>
+<div class="row">
+<div class="column">
+<div class="ui container segment">
+    <div class="ui divided items">
+        {% for item in rent_fang %}
+        <div class="item">
+            <div class="content">
+                <a class="header" href="{{ item.href }}">
+                    {{ item.title }}
+                </a>
+                <div class="meta">
+        <span class=" cinema" >{{ item.price }}</span>
+      </div>
+                <div class="extra">
+                {% for tag in item.address  %}
+                <div class="ui label">
+                    {{tag}}
+                </div>
+                {% endfor %}
+                 <br>
+                {% for tag2 in item.info  %}
+                <div class="content">
+                 {{ tag2 }}
+                 </div>
+                {% endfor %}
+      </div>
+
+
+      </div>
+            </div>
+        {% endfor %}
+    <div class="ui small pagination menu">
+        {% if rent_fang.has_previous %}
+    <a class="icon item" href="?page={{rent_fang.previous_page_number}}">
+        <i class="icon left arrow">上一页</i>
+    </a>
+     {% endif %}
+    <div class="disable item" >{{ rent_fang.number }}
+    </div>
+     {% if rent_fang.has_next %}
+    <a class="icon item" href="?page={{rent_fang.next_page_number}}">
+        <i class="icon right arrow">下一页</i>
+    </a>
+    {% endif %}
+
+      </div>
+
+        </div>
+
+</div>
+</div>
+</div>
+    </div>
+{% endblock %}

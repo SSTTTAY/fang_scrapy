@@ -1,0 +1,221 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>'Guangzhou'</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+
+</head>
+<body>
+
+   <!--  <div class="ui bottom attached segment pushable"> -->
+   <div class="ui inverted left vertical sidebar menu" id="sider">
+    <a class="item" href="?fang=rent_fang" id="rent"><i class="home icon"></i> 出租房 </a>
+    <a class="item" href="?fang=second_fang"><i class="block layout icon"></i> 二手房 </a>
+    <a class="item" href="?fang=business_fang"><i class="smile icon"></i> 商业楼 </a>
+    <a class="item" href="?fang=new_fang"><i class="calendar icon"></i> 新房 </a>
+  </div>
+
+  <div class="pusher">
+    <div class="ui basic segment">
+      <h3 class="ui header">Application Content</h3>
+      <div class="ui menu">
+        <div class="header item" id="menu"><i class="Content icon"></i>Menu</div>
+        <div class="item" id="fang_info">广州房源</div>
+        <div class="item" id="anlays">房价分析</div>
+        <div class="item" id="predict">房价预测</div>
+        <div class="item" id="about">About Us</div>
+    </div>
+        <!--网格-->
+         <div class="ui equal width grid">
+        <div class="row">
+
+
+
+      <div class="ui container " id="cont" style="min-width:400px;height:400px">
+          <div class="ui compact menu">
+              <div class="ui simple dropdown item ">
+                  类型
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                      <div class="item" id="new">新房</div>
+                      <div class="item" id="second">二手房</div>
+                      <div class="item" id="rent">出租房</div>
+                  </div>
+              </div>
+          </div>
+          <div class="ui container" id="chart1"></div>
+      </div>
+
+  </div>
+
+
+</div>
+       </div>
+
+</div>
+      </div>
+<!-- </div> -->
+
+
+
+<script>
+       $('#new').click(function () {
+           $('#chart1').highcharts({
+               chart: {
+                   zoomType: 'xy'
+               },
+               title: {
+                   text: '广州房价趋势图'
+               },
+               subtitle: {
+                   text: '数据来源: http://fangjia.fang.com/zoushi/sz.htm'
+               },
+               xAxis: [{
+                   categories: [2017.03, 2017.04, 2017.05, 2017.06, 2017.07],
+                   crosshair: false
+               }],
+               yAxis: [{ // Primary yAxis
+                   min: 1,
+                   max: 2,
+                   labels: {
+                       format: '{value}万元/平方',
+                       style: {
+                           color: Highcharts.getOptions().colors[1]
+                       }
+                   },
+                   title: {
+                       text: '房价',
+                       style: {
+                           color: Highcharts.getOptions().colors[1]
+                       }
+                   }
+               }, { // Secondary yAxis
+                   title: {
+                       text: '成交量',
+                       style: {
+                           color: Highcharts.getOptions().colors[0]
+                       }
+                   },
+                   labels: {
+                       format: '{value} 套',
+                       style: {
+                           color: Highcharts.getOptions().colors[0]
+                       }
+                   },
+                   opposite: true
+               }],
+               tooltip: {
+                   shared: false
+               },
+               legend: {
+                   layout: 'vertical',
+                   align: 'left',
+                   x: 120,
+                   verticalAlign: 'top',
+                   y: 70,
+                   floating: true,
+                   backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+               },
+               series: [{
+                   name: '成交量',
+                   type: 'column',
+                   yAxis: 1,
+                   data: {{ new_total|safe }},
+                   tooltip: {
+                       valueSuffix: ' 套'
+                   }
+               }, {
+                   name: '房价趋势',
+                   type: 'spline',
+                   data: {{ new_price|safe }},
+                   tooltip: {
+                       valueSuffix: '万元/平方'
+                   }
+               }]
+           });
+       })
+   ;
+       $('#second').click(function () {
+           $('#chart1').highcharts({
+               chart: {
+                   zoomType: 'xy'
+               },
+               title: {
+                   text: '广州房价趋势图'
+               },
+               subtitle: {
+                   text: '数据来源: http://fangjia.fang.com/zoushi/sz.htm'
+               },
+               xAxis: [{
+                   categories: [2017.03, 2017.04, 2017.05, 2017.06, 2017.07],
+                   crosshair: false
+               }],
+               yAxis: [{ // Primary yAxis
+                   min: 2.2,
+                   max: 3.3,
+                   labels: {
+                       format: '{value}万元/平方',
+                       style: {
+                           color: Highcharts.getOptions().colors[1]
+                       }
+                   },
+                   title: {
+                       text: '房价',
+                       style: {
+                           color: Highcharts.getOptions().colors[1]
+                       }
+                   }
+               }, { // Secondary yAxis
+                   title: {
+                       text: '成交量',
+                       style: {
+                           color: Highcharts.getOptions().colors[0]
+                       }
+                   },
+                   labels: {
+                       format: '{value} 套',
+                       style: {
+                           color: Highcharts.getOptions().colors[0]
+                       }
+                   },
+                   opposite: true
+               }],
+               tooltip: {
+                   shared: false
+               },
+               legend: {
+                   layout: 'vertical',
+                   align: 'left',
+                   x: 120,
+                   verticalAlign: 'top',
+                   y: 30,
+                   floating: true,
+                   backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+               },
+               series: [{
+                   name: '成交量',
+                   type: 'column',
+                   yAxis: 1,
+                   data: {{ second_total|safe }},
+                   tooltip: {
+                       valueSuffix: ' 套'
+                   }
+               }, {
+                   name: '房价趋势',
+                   type: 'spline',
+                   data: {{ second_price|safe }},
+                   tooltip: {
+                       valueSuffix: '万元/平方'
+                   }
+               }]
+           });
+       })
+   ;
+</script>

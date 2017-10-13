@@ -1,0 +1,17 @@
+<div class="ui small pagination menu">
+    {% if rent_fang.has_previous %}
+    <a class="icon item" href="?page={{fangs.previous_page_number}}">
+        <i class="icon left arrow"></i>
+
+    </a>
+    {% endif %}
+    <div class="disable item" >
+        {{rent_fang.number}} of {{rent_fang.paginatior.num_page}}
+    </div>
+    {% if rent_fang.has_next %}
+    <a class="icon item" href="?page={{fangs.next_page_number}}">
+        <i class="icon right arrow">10</i>
+    </a>
+    {% endif %}
+
+</div>

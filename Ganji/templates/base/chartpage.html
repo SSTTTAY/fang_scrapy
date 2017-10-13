@@ -1,0 +1,226 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>'Guangzhou'</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+
+</head>
+<body>
+
+   <!--  <div class="ui bottom attached segment pushable"> -->
+   <div class="ui inverted left vertical sidebar menu" id="sider">
+    <a class="item" href="?fang=rent_fang" id="rent"><i class="home icon"></i> 出租房 </a>
+    <a class="item" href="?fang=second_fang"><i class="block layout icon"></i> 二手房 </a>
+    <a class="item" href="?fang=business_fang"><i class="smile icon"></i> 商业楼 </a>
+    <a class="item" href="?fang=new_fang"><i class="calendar icon"></i> 新房 </a>
+  </div>
+
+  <div class="pusher">
+    <div class="ui basic segment">
+      <h3 class="ui header">Application Content</h3>
+      <div class="ui menu">
+        <div class="header item" id="menu"><i class="Content icon"></i>Menu</div>
+        <div class="item" id="fang_info">广州房源</div>
+        <div class="item" id="anlays">房价分析</div>
+        <div class="item" id="predict">房价预测</div>
+        <div class="item" id="about">About Us</div>
+    </div>
+        <!--网格-->
+        <div class="row">
+            <div class="ui two column grid">
+  <div class="column">
+    <div class="ui segment">
+      <div class="ui container" id="cont" style="min-width:400px;height:400px"></div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui segment">
+      <div class="ui container" id="cont2" style="min-width:400px;height:400px"></div>
+    </div>
+  </div>
+
+</div>
+       </div>
+         <div class="row">
+            <div class="ui two column grid">
+  <div class="column">
+    <div class="ui segment">
+      <div class="ui container" id="cont3" style="min-width:400px;height:400px"></div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui segment">
+      <div class="ui container" id="cont4" style="min-width:400px;height:400px"></div>
+    </div>
+  </div>
+
+</div>
+       </div>
+  </div>
+      </div>
+<!-- </div> -->
+
+    <script >
+
+    $('#menu').click(function(){
+        $('#sider').sidebar('toggle');
+        });
+
+    </script>
+    <script>
+    $('#cont').highcharts( {
+    chart:{
+         type:'column'
+        },
+    title: {
+        text: '广州市房源分布',
+        x: -20
+    },
+    subtitle: {
+        text: '数据来源: ganji.com',
+        x: -20
+    },
+    xAxis: {
+         title:{
+              text:'地区'}
+
+    },
+    yAxis: {
+        title: {
+            text: '数量'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+    series:{{List|safe}}
+});
+    </script>
+<script>
+    $(function () {
+    $('#cont2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '2017 广州房源各地区所占比'
+        },
+        tooltip: {
+            headerFormat: '{series.name}<br>',
+            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '浏览器访问量占比',
+            data:{{ PieData|safe }}
+        }]
+    });
+});
+    </script>
+<script>
+    $(function () {
+    $('#cont3').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: '广州各地区平均房价'
+        },
+        subtitle: {
+            text: '数据来源: WorldClimate.com'
+        },
+        xAxis: {
+            categories:{{ AreaList|safe }}
+        },
+        yAxis: {
+            title: {
+                text: '价格 (元/月)'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true          // 开启数据标签
+                },
+                enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+            }
+        },
+        series: [{
+            name: '价格',
+            data: {{ PriceList }}
+        }]
+    });
+});
+
+</script>
+<script>
+     $(function () {
+    $('#cont4').highcharts({
+        chart: {
+            polar: true,
+            type: 'line'
+        },
+        title: {
+            text: '租房类型分布',
+            x: -80
+        },
+        pane: {
+            size: '80%'
+        },
+        xAxis: {
+            categories: {{ Spyder_data|safe }},
+            tickmarkPlacement: 'on',
+            lineWidth: 0
+        },
+        yAxis: {
+            gridLineInterpolation: 'polygon',
+            lineWidth: 0,
+            min: 0
+        },
+        tooltip: {
+            shared: true,
+            pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+        },
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 70,
+            layout: 'vertical'
+        },
+        series: [{
+            name: '房源数量',
+            data: {{ Spyder_cata|safe }},
+            pointPlacement: 'on'
+        }]
+    });
+});
+</script>
+
+</body>
+</html>

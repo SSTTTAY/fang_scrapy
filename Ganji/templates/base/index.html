@@ -1,0 +1,60 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>'Guangzhou'</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+
+</head>
+<body>
+
+   <!--  <div class="ui bottom attached segment pushable"> -->
+  <div class="ui inverted left vertical sidebar menu" id="sider">
+    <a class="item" href="?fang=rent_fang" id="rent"><i class="home icon"></i> 出租房 </a>
+    <a class="item" href="?fang=second_fang"><i class="block layout icon"></i> 二手房 </a>
+    <a class="item" href="?fang=business_fang"><i class="smile icon"></i> 商业楼 </a>
+    <a class="item" href="?fang=new_fang"><i class="calendar icon"></i> 新房 </a>
+  </div>
+
+  <div class="pusher">
+
+      <h3 class="ui header">Application Content</h3>
+      <div class="ui menu">
+        <div class="header item" id="menu"><i class="Content icon"></i>Menu</div>
+        <div class="item" href="index.html" id="fang_info">广州房源</div>
+        <div class="item"  href="second.html" id="anladb" >房价分析</div>
+        <div class="item" href="predict" id="predict">房价预测</div>
+        <div class="item">About Us</div>
+    </div>
+        <!--网格-->
+     <div class="ui basic segment">
+
+        <!--房子列表-->
+        {% block lists %}
+        {% endblock %}
+
+    </div>
+  </div>
+<!-- </div> -->
+
+    <script >
+    $('#menu').click(function(){
+        $('#sider').sidebar('toggle');
+        });
+    $('#anladb').click(function () {
+        window.location.href='chartpage.html'
+    })
+    $('#predict').click(function () {
+        window.location.href='predict.html'
+    })
+
+    </script>
+
+</body>
+</html>
